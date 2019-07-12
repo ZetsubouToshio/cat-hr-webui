@@ -71,6 +71,12 @@ export default function ResponsiveDrawer(props) {
                         <ListItemText primary={"GitHub"}/>
                     </ListItem>
                 </Link>
+                <Link to="/google">
+                    <ListItem button key={"google"}>
+                        <ListItemIcon>{<SearchIcon/>}</ListItemIcon>
+                        <ListItemText primary={"Google"}/>
+                    </ListItem>
+                </Link>
             </List>
             <Divider/>
         </div>
