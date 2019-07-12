@@ -50,7 +50,7 @@ function GitHubTool() {
     const [values, setValues] = React.useState({
         login: 'zetsuboutoshio',
         tab: "one",
-        emails: []
+        emails: undefined
     });
 
     const getDataFromGithub = () => {
@@ -86,7 +86,9 @@ function GitHubTool() {
                         <Button onClick={getDataFromGithub}>Анализ</Button>
                     </div>
                     <div>
-                        {values.emails.map(e => <Typography component="div" key={e}>{e}</Typography>)}
+                        {values.emails ? values.emails.length === 0 ? <div>Не найдено ни одного е-мейла</div> :
+                            <div>Email:</div>: <div></div>}
+                        {values.emails && values.emails.map(e => <Typography component="div" key={e}>{e}</Typography>)}
                     </div>
                 </div>
             </TabContainer>}
