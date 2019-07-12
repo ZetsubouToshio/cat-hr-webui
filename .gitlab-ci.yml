@@ -7,25 +7,37 @@ variables:
   PUBLIC_URL: /cat-hr
 # Cache node modules - speeds up future builds
 cache:
+  key: "$CI_BUILD_REF_NAME" # contains either the branch or the tag, so it's caching per branch
+  untracked: true
   paths:
     - node_modules
+    - build
 
 # Name the stages involved in the pipeline
 stages:
+  - build
   - deploy
 
 # Job name for gitlab to recognise this results in assets for Gitlab Pages
 # https://docs.gitlab.com/ee/user/project/pages/introduction.html#gitlab-pages-requirements
-pages:
-  stage: deploy
+npm build:
+  stage: build
   script:
     - npm install # Install all dependencies
     - npm run build --prod # Build for prod
-    - cp public/index.html public/404.html # Not necessary, but helps with https://medium.com/@pshrmn/demystifying-single-page-applications-3068d0555d46
-    - mv public _public # CRA and gitlab pages both use the public folder. Only do this in a build pipeline.
-    - mv build public # Move build files to public dir for Gitlab Pages
-  artifacts:
-    paths:
-      - public # The built files for Gitlab Pages to serve
   only:
     - master # Only run on master branch
+
+docker build and push:
+  stage: deploy
+  image: docker:stable
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_DRIVER: overlay2
+  script:
+    - docker build -t $CI_REGISTRY/zetsuboutoshio/cat-hr-webui:latest .
+    - docker push $CI_REGISTRY/zetsuboutoshio/cat-hr-webui:latest
+  only:
+    - develop
