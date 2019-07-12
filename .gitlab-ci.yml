@@ -23,6 +23,7 @@ stages:
 npm build:
   stage: build
   script:
+    - rm build
     - npm install # Install all dependencies
     - npm run build --prod # Build for prod
   only:
@@ -40,4 +41,4 @@ docker build and push:
     - docker build -t $CI_REGISTRY/zetsuboutoshio/cat-hr-webui:latest .
     - docker push $CI_REGISTRY/zetsuboutoshio/cat-hr-webui:latest
   only:
-    - develop
+    - master
