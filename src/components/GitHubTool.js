@@ -6,6 +6,9 @@ import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
+import Button from '@material-ui/core/Button';
+import {httpGet} from "../lib/Requests";
+import {parseGitHubAnswer} from "../lib/GithubResponceParser";
 
 function TabContainer(props) {
     return (
@@ -45,9 +48,17 @@ function GitHubTool() {
     };
 
     const [values, setValues] = React.useState({
-        login: 'xxxxxx',
-        tab: "one"
+        login: 'zetsuboutoshio',
+        tab: "one",
+        emails: []
     });
+
+    const getDataFromGithub = () => {
+        const url = 'https://api.github.com/users/' + values.login + '/events/public';
+        const data = httpGet(url);
+        const emails = parseGitHubAnswer(data);
+        handleChange("emails")({target: {}}, emails);
+    };
 
 
     return (
@@ -72,9 +83,13 @@ function GitHubTool() {
                     </div>
                     <div>
                         <a href={'https://api.github.com/users/' + values.login + '/events/public'}>https://api.github.com/users/{values.login}/events/public</a>
+                        <Button onClick={getDataFromGithub}>Анализ</Button>
+                    </div>
+                    <div>
+                        {values.emails.map(e => <Typography component="div" key={e}>{e}</Typography>)}
                     </div>
                 </div>
-                </TabContainer>}
+            </TabContainer>}
             {values.tab === 'two' && <TabContainer>В разработке</TabContainer>}
         </div>
 
