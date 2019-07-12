@@ -38,6 +38,7 @@ docker build and push:
     DOCKER_HOST: tcp://docker:2375
     DOCKER_DRIVER: overlay2
   script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker build -t $CI_REGISTRY/zetsuboutoshio/cat-hr-webui:latest .
     - docker push $CI_REGISTRY/zetsuboutoshio/cat-hr-webui:latest
   only:
