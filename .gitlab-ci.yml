@@ -23,7 +23,7 @@ stages:
 npm build:
   stage: build
   script:
-    - rm build
+    - rm -rf build
     - npm install # Install all dependencies
     - npm run build --prod # Build for prod
   only:
