@@ -82,8 +82,8 @@ function GitHubTool() {
                         />
                     </div>
                     <div>
-                        <a href={'https://api.github.com/users/' + values.login + '/events/public'}>https://api.github.com/users/{values.login}/events/public</a>
                         <Button onClick={getDataFromGithub}>Анализ</Button>
+                        <Button href={'https://api.github.com/users/' + values.login + '/events/public'}>Ссылка</Button>
                     </div>
                     <div>
                         {values.emails ? values.emails.length === 0 ? <div>Не найдено ни одного е-мейла</div> :
