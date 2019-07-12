@@ -48,7 +48,7 @@ function GitHubTool() {
     };
 
     const [values, setValues] = React.useState({
-        login: 'zetsuboutoshio',
+        login: '',
         tab: "one",
         emails: undefined
     });
