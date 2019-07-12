@@ -1,5 +1,9 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## docker run
+
+`docker run -itd -p 80:80 --rm registry.gitlab.com/zetsuboutoshio/cat-hr-webui:latest`
+
 ## Available Scripts
 
 In the project directory, you can run:

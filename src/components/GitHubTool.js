@@ -74,7 +74,7 @@ function GitHubTool() {
                         <a href={'https://api.github.com/users/' + values.login + '/events/public'}>https://api.github.com/users/{values.login}/events/public</a>
                     </div>
                 </div>
-                e</TabContainer>}
+                </TabContainer>}
             {values.tab === 'two' && <TabContainer>В разработке</TabContainer>}
         </div>
 
