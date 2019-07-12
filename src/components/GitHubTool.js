@@ -40,8 +40,8 @@ function GitHubTool() {
 
     const classes = useStyles();
 
-    const handleChange = name => event => {
-        setValues({...values, [name]: event.target.value});
+    const handleChange = name => (event, newValue) => {
+        setValues({...values, [name]: event.target.value || newValue});
     };
 
     const [values, setValues] = React.useState({
