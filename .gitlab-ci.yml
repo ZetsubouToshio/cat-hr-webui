@@ -1,10 +1,6 @@
 # Using the node alpine image to build the React app
 image: node:alpine
 
-# Announce the URL as per CRA docs
-# https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#advanced-configuration
-variables:
-  PUBLIC_URL: /cat-hr
 # Cache node modules - speeds up future builds
 cache:
   key: "$CI_BUILD_REF_NAME" # contains either the branch or the tag, so it's caching per branch
