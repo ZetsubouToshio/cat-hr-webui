@@ -140,11 +140,10 @@ function GitHubTool() {
                         />
                     </div>
                     <div>
-                        {/*{createSearchUrl()}*/}
+                        <a href={createSearchUrl()}>Ссылка на GitHub</a>
                     </div>
                     <div>
-                        <Button onClick={searchOnGitlab}>Анализ</Button>
-                        <Button href={createSearchUrl()}>Ссылка</Button>
+                        <Button onClick={searchOnGitlab}>Создать задачу</Button>
                     </div>
                     <div>
                         {values.searchResult}
