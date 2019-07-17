@@ -8,7 +8,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Button from '@material-ui/core/Button';
 import {httpGet} from "../lib/Requests";
-import {parseGitHubAnswer} from "../lib/GithubResponceParser";
+import {parseGitHubAnswer, parseGitHubSearchResult} from "../lib/GithubResponceParser";
 
 function TabContainer(props) {
     return (
@@ -50,7 +50,9 @@ function GitHubTool() {
     const [values, setValues] = React.useState({
         login: '',
         tab: "one",
-        emails: undefined
+        emails: undefined,
+        language: undefined,
+        location: undefined
     });
 
     const getDataFromGithub = () => {
@@ -58,6 +60,31 @@ function GitHubTool() {
         const data = httpGet(url);
         const emails = parseGitHubAnswer(data);
         handleChange("emails")({target: {}}, emails);
+    };
+
+    const searchOnGitlab = () => {
+        console.log(createSearchUrl());
+        const data = httpGet(createSearchUrl());
+        console.log(data);
+        const searchResult = parseGitHubSearchResult(data);
+        handleChange("searchResult")({target: {}}, searchResult);
+    };
+
+    const createSearchUrl = () => {
+        let url = "https://github.com/search?q=";
+
+        if (values.language) {
+            url+= "language%3A" + values.language
+        }
+
+        if (values.location) {
+            url+= "+location%3A" + values.location
+        }
+
+
+        url += "&type=Users";
+
+        return url;
     };
 
 
@@ -73,7 +100,7 @@ function GitHubTool() {
                 <div>
                     <div>
                         <TextField
-                            id="standard-name"
+                            id="login"
                             label="github login"
                             className={classes.textField}
                             value={values.login}
@@ -87,12 +114,44 @@ function GitHubTool() {
                     </div>
                     <div>
                         {values.emails ? values.emails.length === 0 ? <div>Не найдено ни одного е-мейла</div> :
-                            <div>Email:</div>: <div></div>}
+                            <div>Email:</div> : <div></div>}
                         {values.emails && values.emails.map(e => <Typography component="div" key={e}>{e}</Typography>)}
                     </div>
                 </div>
             </TabContainer>}
-            {values.tab === 'two' && <TabContainer>В разработке</TabContainer>}
+            {values.tab === 'two' && <TabContainer>
+                <div>
+                    <div>
+                        <TextField
+                            id="language"
+                            label="language"
+                            className={classes.textField}
+                            value={values.language}
+                            onChange={handleChange('language')}
+                            margin="normal"
+                        />
+                        <TextField
+                            id="location"
+                            label="location"
+                            className={classes.textField}
+                            value={values.location}
+                            onChange={handleChange('location')}
+                            margin="normal"
+                        />
+                    </div>
+                    <div>
+                        {/*{createSearchUrl()}*/}
+                    </div>
+                    <div>
+                        <Button onClick={searchOnGitlab}>Анализ</Button>
+                        <Button href={createSearchUrl()}>Ссылка</Button>
+                    </div>
+                    <div>
+                        {values.searchResult}
+                    </div>
+                </div>
+
+            </TabContainer>}
         </div>
 
 

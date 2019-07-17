@@ -2,6 +2,6 @@ export function httpGet(theUrl)
 {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open( "GET", theUrl, false );
-    xmlHttp.send( null );
+    //xmlHttp.send( null );
     return xmlHttp.responseText;
 }
