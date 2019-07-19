@@ -7,8 +7,8 @@ import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Button from '@material-ui/core/Button';
-import {httpGet} from "../lib/Requests";
-import {parseGitHubAnswer, parseGitHubSearchResult} from "../lib/GithubResponceParser";
+import {httpGet, httpPost} from "../lib/Requests";
+import {parseGitHubAnswer} from "../lib/GithubResponceParser";
 
 function TabContainer(props) {
     return (
@@ -63,11 +63,20 @@ function GitHubTool() {
     };
 
     const searchOnGitlab = () => {
-        console.log(createSearchUrl());
-        const data = httpGet(createSearchUrl());
-        console.log(data);
-        const searchResult = parseGitHubSearchResult(data);
-        handleChange("searchResult")({target: {}}, searchResult);
+        // console.log(createSearchUrl());
+        // const data = httpGet(createSearchUrl());
+        // console.log(data);
+        // const searchResult = parseGitHubSearchResult(data);
+        // handleChange("searchResult")({target: {}}, searchResult);
+        httpPost("http://localhost:8080/pattern",
+            {
+                source: "github",
+                properties: {
+                    language: values.language,
+                    location: values.location
+                }
+            }
+            )
     };
 
     const createSearchUrl = () => {

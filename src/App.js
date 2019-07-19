@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Route} from "react-router-dom";
 import MenuContainer from "./components/MenuContainer";
 import Home from "./components/Home";
 import GitHubTool from "./components/GitHubTool";
+import Secured from "./components/Secured";
 
 function App() {
     return (
@@ -12,6 +13,7 @@ function App() {
                 <MenuContainer>
                     <Route exact path="/" component={Home}/>
                     <Route path="/github" component={GitHubTool}/>
+                    <Route path="/secured" component={Secured}/>
                 </MenuContainer>
             </header>
         </Router>
