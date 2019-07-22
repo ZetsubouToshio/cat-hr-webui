@@ -10,11 +10,12 @@ function App() {
     return (
         <Router className="App">
             <header className="App-header">
-                <MenuContainer>
-                    <Route exact path="/" component={Home}/>
-                    <Route path="/github" component={GitHubTool}/>
-                    <Route path="/secured" component={Secured}/>
-                </MenuContainer>
+                <Secured>
+                    <MenuContainer>
+                        <Route exact path="/" component={Home}/>
+                        <Route path="/github" component={GitHubTool}/>
+                    </MenuContainer>
+                </Secured>
             </header>
         </Router>
     );
