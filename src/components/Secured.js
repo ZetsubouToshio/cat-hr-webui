@@ -25,7 +25,7 @@ class Secured extends Component {
         if (this.state.keycloak) {
             if (this.state.authenticated) return (
                 <div>
-                    {this.children}
+                    {this.props.children}
                 </div>
             ); else return (<div>Unable to authenticate!</div>)
         }
